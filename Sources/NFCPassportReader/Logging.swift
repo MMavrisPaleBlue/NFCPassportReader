@@ -10,23 +10,72 @@ import Foundation
 import OSLog
 
 
-extension Logger {
+public extension Logger {
     /// Using your bundle identifier is a great way to ensure a unique identifier.
     private static var subsystem = Bundle.main.bundleIdentifier!
     
     /// Tag Reader logs
-    static let passportReader = Logger(subsystem: subsystem, category: "passportReader")
+    static let passportReader = CustomLogger(category: "passportReader")
 
     /// Tag Reader logs
-    static let tagReader = Logger(subsystem: subsystem, category: "tagReader")
+    static let tagReader = CustomLogger(category: "tagReader")
 
     /// SecureMessaging logs
-    static let secureMessaging = Logger(subsystem: subsystem, category: "secureMessaging")
+    static let secureMessaging = CustomLogger(category: "secureMessaging")
 
-    static let openSSL = Logger(subsystem: subsystem, category: "openSSL")
+    static let openSSL = CustomLogger(category: "openSSL")
 
-    static let bac = Logger(subsystem: subsystem, category: "BAC")
-    static let chipAuth = Logger(subsystem: subsystem, category: "chipAuthentication")
-    static let pace = Logger(subsystem: subsystem, category: "PACE")
+    static let bac = CustomLogger(category: "BAC")
+    static let chipAuth = CustomLogger(category: "chipAuthentication")
+    static let pace = CustomLogger(category: "PACE")
+
+    public static let customLoggerHolder = CustomLoggerHolder.shared
 }
 
+public class CustomLogger {
+    let category: String
+
+    init(category: String) {
+        self.category = category
+    }
+
+    func debug(_ message: String) {
+        CustomLoggerHolder.shared.log(category: "Debug", message: message)
+    }
+
+    func trace(_ message: String) {
+        CustomLoggerHolder.shared.log(category: "Trace", message: message)
+    }
+
+    func info(_ message: String) {
+        CustomLoggerHolder.shared.log(category: "Info", message: message)
+    }
+
+    func notice(_ message: String) {
+        CustomLoggerHolder.shared.log(category: "Notice", message: message)
+    }
+
+    func warning(_ message: String){
+        CustomLoggerHolder.shared.log(category: "Warning", message: message)
+    }
+
+    func error(_ message: String) {
+        CustomLoggerHolder.shared.log(category: "Error", message: message)
+    }
+
+    func critical(_ message: String) {
+        CustomLoggerHolder.shared.log(category: "Critical", message: message)
+    }
+}
+
+public class CustomLoggerHolder {
+    static let shared = CustomLoggerHolder()
+
+    public var logs: String = ""
+    private init() { }
+
+    func log(category: String, message: String) {
+        logs.append("\n\(category): \(message)")
+        print("\n\(category): \(message)")
+    }
+}

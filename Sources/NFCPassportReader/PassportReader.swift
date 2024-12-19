@@ -41,6 +41,10 @@ public class PassportReader : NSObject {
     private var masterListURL : URL?
     private var shouldNotReportNextReaderSessionInvalidationErrorUserCanceled : Bool = false
 
+    public private(set) lazy var logs: String = {
+        Logger.customLoggerHolder.logs
+    }()
+
     // By default, Passive Authentication uses the new RFS5652 method to verify the SOD, but can be switched to use
     // the previous OpenSSL CMS verification if necessary
     public var passiveAuthenticationUsesOpenSSL : Bool = false

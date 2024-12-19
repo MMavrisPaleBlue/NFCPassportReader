@@ -32,9 +32,6 @@ public class NFCPassportModel {
     public private(set) lazy var gender : String = { return passportDataElements?["5F35"] ?? "?" }()
     public private(set) lazy var nationality : String = { return passportDataElements?["5F2C"] ?? "?" }()
 
-    public private(set) lazy var logs: String = {
-        Logger.customLoggerHolder.logs
-    }()
     public private(set) lazy var lastName : String = {
         return names[0].replacingOccurrences(of: "<", with: " " )
     }()

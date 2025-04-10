@@ -22,10 +22,10 @@ extension NFCViewDisplayMessage {
     public var description: String {
         switch self {
             case .requestPresentPassport:
-                return "Hold your iPhone near an NFC enabled passport."
+                return "Hold your iPhone near an NFC enabled document."
             case .authenticatingWithPassport(let progress):
                 let progressString = handleProgress(percentualProgress: progress)
-                return "Authenticating with passport.....\n\n\(progressString)"
+                return "Authenticating with document.....\n\n\(progressString)"
             case .readingDataGroupProgress(let dataGroup, let progress):
                 let progressString = handleProgress(percentualProgress: progress)
                 return "Reading \(dataGroup).....\n\n\(progressString)"
@@ -40,14 +40,14 @@ extension NFCViewDisplayMessage {
                     case NFCPassportReaderError.InvalidMRZKey:
                         return "MRZ Key not valid for this document."
                     case NFCPassportReaderError.ResponseError(let description, let sw1, let sw2):
-                        return "Sorry, there was a problem reading the passport. \(description) - (0x\(sw1), 0x\(sw2)"
+                        return "Sorry, there was a problem reading the document. \(description) - (0x\(sw1), 0x\(sw2)"
                     default:
-                        return "Sorry, there was a problem reading the passport. Please try again"
+                        return "Sorry, there was a problem reading the document. Please try again"
                 }
             case .activeAuthentication:
                 return "Authenticating....."
             case .successfulRead:
-                return "Passport read successfully"
+                return "Document read successfully"
         }
     }
     

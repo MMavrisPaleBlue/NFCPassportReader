@@ -25,10 +25,6 @@ let package = Package(
             name: "NFCPassportReader",
             dependencies: [
                 "OpenSSL"
-            ],
-            linkerSettings: [
-                .linkedLibrary("ssl"),
-                .linkedLibrary("crypto")
             ]
         )
     ]
